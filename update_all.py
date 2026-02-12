@@ -38,7 +38,7 @@ if __name__ == "__main__":
         print(f"Current cursor: {ts_before} ({ts_before_readable})")
 
         print("\nUpdating goldsky...")
-        update_goldsky()
+        # update_goldsky()
 
         # Get cursor state after update
         ts_after, _, _ = get_latest_cursor()
