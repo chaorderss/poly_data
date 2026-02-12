@@ -172,6 +172,10 @@ Dependencies are managed via `pyproject.toml` and installed automatically with `
 - `notebook` - Jupyter notebook interface
 - `ipykernel` - Python kernel for Jupyter
 
+**Test Dependencies** (optional, installed with `--extra test`):
+- `pytest` - Testing framework
+- `pytest-cov` - Coverage reporting for tests
+
 ## Features
 
 ### Resumable Operations
@@ -218,6 +222,50 @@ The processing stage automatically discovers markets that weren't in the initial
 
 **Issue**: Rate limiting
 **Solution**: The pipeline handles this automatically with exponential backoff
+
+## Testing
+
+This project includes a comprehensive test suite to ensure code quality and reliability.
+
+### Running Tests
+
+```bash
+# Install test dependencies
+uv sync --extra test
+
+# Run all tests
+uv run pytest
+
+# Run tests with verbose output
+uv run pytest -v
+
+# Run tests with coverage report
+uv run pytest --cov=poly_utils --cov=update_utils --cov-report=html
+
+# Run specific test file
+uv run pytest tests/test_utils.py
+
+# Run specific test
+uv run pytest tests/test_utils.py::TestGetMarkets::test_get_markets_with_no_files
+```
+
+### Test Structure
+
+```
+tests/
+├── __init__.py
+├── test_utils.py           # Tests for poly_utils/utils.py
+└── test_update_markets.py  # Tests for update_utils/update_markets.py
+```
+
+### Writing Tests
+
+Tests use pytest and follow these conventions:
+- Test files are named `test_*.py`
+- Test classes are named `Test*`
+- Test functions are named `test_*`
+- Use fixtures (especially `tmp_path`) for file operations
+- Mock external API calls to avoid network dependencies
 
 ## Analysis
 
